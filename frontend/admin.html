@@ -3,172 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración | Lume Joyas & Pulseras</title>
+    <title>Panel de Administración | Lume</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/admin.css">
 </head>
-<body class="admin-layout">
-    <!-- Barra Superior de Navegación del Administrador -->
-    <header class="admin-navbar">
-        <div class="admin-nav-brand">
-            <a href="index.html" class="admin-logo-text">Lume</a>
-            <span class="admin-tag">Panel Privado</span>
-        </div>
-        <div class="admin-nav-actions">
-            <div class="admin-user-pill">
-                <span class="admin-user-avatar">MG</span>
-                <span class="admin-user-name">María González & Ángeles Navas</span>
-            </div>
-            <a href="index.html" class="btn-admin-view-store">Ver Tienda</a>
-            <button class="btn-lume-logout">Cerrar Sesión</button>
+<body>
+    <!-- Barra superior -->
+    <header class="navbar-admin">
+        <h2>Lume Admin</h2>
+        <div class="acciones-nav-admin">
+            <span style="font-size: 13px; color: #5c4d4d;">María González & Ángeles Navas</span>
+            <a href="index.html" class="btn-volver-tienda">Ver Tienda</a>
+            <button type="button" class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
         </div>
     </header>
 
-    <main class="admin-container">
-        <!-- Tarjetas de Métricas -->
-        <section class="admin-stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">💎</div>
-                <div class="stat-content">
-                    <h3 id="stat-total-products">0</h3>
-                    <p>Piezas en Catálogo</p>
-                </div>
+    <main class="contenedor-admin">
+        <!-- Métricas básicas -->
+        <div class="grid-stats">
+            <div class="tarjeta-stat">
+                <h3 id="stat-total-products">0</h3>
+                <p>Piezas en Catálogo</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon">📩</div>
-                <div class="stat-content">
-                    <h3 id="stat-total-inquiries">0</h3>
-                    <p>Consultas Totales</p>
-                </div>
+            <div class="tarjeta-stat">
+                <h3 id="stat-total-inquiries">0</h3>
+                <p>Mensajes de Clientes</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon">✨</div>
-                <div class="stat-content">
-                    <h3 id="stat-unread-inquiries">0</h3>
-                    <p>Mensajes Nuevos</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Barra de Pestañas -->
-        <div class="admin-tabs-bar">
-            <button class="admin-tab-btn active" data-tab="products">Gestión de Catálogo</button>
-            <button class="admin-tab-btn" data-tab="inquiries">Bandeja de Contacto</button>
         </div>
 
-        <!-- SECCIÓN 1: CATÁLOGO DE PRODUCTOS -->
-        <section id="tab-products-section">
-            <div class="table-header-actions">
-                <input type="text" id="admin-product-search" class="admin-search-input" placeholder="🔍 Buscar por nombre o categoría...">
-                <button id="btn-open-create-product" class="btn-create-product">+ Nueva Pieza Artesanal</button>
+        <!-- Pestañas -->
+        <div class="tabs-admin">
+            <button type="button" class="admin-tab-btn active" data-tab="products">Gestión de Catálogo</button>
+            <button type="button" class="admin-tab-btn" data-tab="inquiries">Bandeja de Mensajes</button>
+        </div>
+
+        <!-- PESTAÑA 1: PRODUCTOS -->
+        <section id="tab-products-section" style="border:none; padding:0; box-shadow:none; background:transparent;">
+            <div class="barra-tabla-admin">
+                <h3>Lista de Productos</h3>
+                <button type="button" id="btn-open-create-product" class="btn-nuevo-prod">+ Nueva Pieza</button>
             </div>
 
-            <div class="admin-table-container">
-                <table class="admin-table">
+            <div class="caja-tabla">
+                <table>
                     <thead>
                         <tr>
-                            <th>Imagen</th>
-                            <th>Pieza / Título</th>
+                            <th>Foto</th>
+                            <th>Nombre</th>
                             <th>Categoría</th>
-                            <th>Precio (COP)</th>
+                            <th>Precio</th>
                             <th>Stock</th>
-                            <th>Personalizable</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="admin-products-table-body">
-                        <!-- Renderizado dinámico vía admin.js -->
+                        <!-- Llenado por admin.js -->
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- SECCIÓN 2: BANDEJA DE CONSULTAS -->
-        <section id="tab-inquiries-section" style="display: none;">
-            <div class="inquiries-list" id="admin-inquiries-list">
-                <!-- Renderizado dinámico de consultas de clientes -->
+        <!-- PESTAÑA 2: MENSAJES DE CONTACTO -->
+        <section id="tab-inquiries-section" style="display: none; border:none; padding:0; box-shadow:none; background:transparent;">
+            <h3>Mensajes Recibidos de Clientes</h3>
+            <div id="admin-inquiries-list" style="margin-top: 15px;">
+                <!-- Llenado por admin.js -->
             </div>
         </section>
     </main>
 
-    <!-- Modal de Creación / Edición de Pieza -->
-    <div id="admin-product-modal" class="admin-modal-backdrop">
-        <div class="admin-modal-window">
-            <div class="admin-modal-header">
-                <h3 id="modal-form-title">Nueva Pieza Artesanal Lume</h3>
-                <button type="button" class="lumi-close-btn" onclick="LumeAdmin.closeProductModal()">✕</button>
-            </div>
+    <!-- Modal para Agregar o Editar Producto -->
+    <div id="admin-product-modal" class="modal-fondo">
+        <div class="modal-caja" style="max-width: 500px;">
+            <button type="button" class="btn-cerrar-x" onclick="cerrarModalAdmin()">✕</button>
+            <h3 id="modal-form-title" style="font-family:'Playfair Display', serif; color:#8c4843; margin-bottom: 15px;">Nueva Pieza</h3>
+            
             <form id="admin-product-form">
-                <div class="form-group">
-                    <label for="product-form-name">Nombre de la Pieza:</label>
-                    <input type="text" id="product-form-name" required placeholder="Ej. Pulsera Hilo Rojo Destino">
+                <div class="grupo-campo">
+                    <label for="product-form-name">Nombre de la pulsera o joya:</label>
+                    <input type="text" id="product-form-name" class="input-contacto" required placeholder="Ej. Pulsera Hilo Rojo">
                 </div>
 
-                <div class="form-grid-2">
-                    <div class="form-group">
+                <div class="fila-dos-campos">
+                    <div class="grupo-campo">
                         <label for="product-form-category">Categoría:</label>
-                        <select id="product-form-category" required>
+                        <select id="product-form-category" class="select-contacto" required>
                             <option value="pulseras">Pulseras</option>
-                            <option value="joyas">Joyas & Accesorios</option>
-                            <option value="parejas">Especial Parejas</option>
+                            <option value="joyas">Joyas</option>
+                            <option value="parejas">Parejas</option>
                             <option value="personalizadas">Personalizadas</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="product-form-price">Precio (COP $):</label>
-                        <input type="number" id="product-form-price" required min="1000" step="500" placeholder="18000">
+                    <div class="grupo-campo">
+                        <label for="product-form-price">Precio (COP):</label>
+                        <input type="number" id="product-form-price" class="input-contacto" required min="1000" placeholder="18000">
                     </div>
                 </div>
 
-                <div class="form-grid-2">
-                    <div class="form-group">
-                        <label for="product-form-stock">Unidades en Stock:</label>
-                        <input type="number" id="product-form-stock" required min="0" value="15">
-                    </div>
-                    <div class="form-group">
-                        <label for="product-form-badge">Distintivo / Badge (opcional):</label>
-                        <input type="text" id="product-form-badge" placeholder="Ej. Más Vendido, Nueva Colección">
-                    </div>
+                <div class="grupo-campo">
+                    <label for="product-form-stock">Cantidad en stock:</label>
+                    <input type="number" id="product-form-stock" class="input-contacto" value="15" min="0">
                 </div>
 
-                <div class="form-group">
-                    <label for="product-form-materials">Materiales & Confección:</label>
-                    <input type="text" id="product-form-materials" placeholder="Ej. Hilo encerado, herrajes en oro golfi hipoalergénico">
+                <div class="grupo-campo">
+                    <label for="product-form-materials">Materiales:</label>
+                    <input type="text" id="product-form-materials" class="input-contacto" placeholder="Ej. Hilo encerado y acero inoxidable">
                 </div>
 
-                <div class="form-group">
-                    <label for="product-form-description">Descripción detallada:</label>
-                    <textarea id="product-form-description" rows="3" required placeholder="Describe el significado, diseño y características de la pieza..."></textarea>
+                <div class="grupo-campo">
+                    <label for="product-form-description">Descripción:</label>
+                    <textarea id="product-form-description" class="textarea-contacto" rows="3" required placeholder="Descripción del accesorio..."></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label for="product-form-image">URL de Imagen del Producto:</label>
-                    <input type="url" id="product-form-image" required placeholder="https://images.unsplash.com/photo-...">
-                    <div class="admin-img-preview-box">
-                        <img id="product-form-img-preview" src="https://images.unsplash.com/photo-1611591475883-8a39ec8c6c57?auto=format&fit=crop&w=800&q=80" alt="Vista previa">
-                        <small>Vista previa de la imagen que verán los clientes en la tienda.</small>
-                    </div>
+                <div class="grupo-campo">
+                    <label for="product-form-image">URL de la Imagen:</label>
+                    <input type="url" id="product-form-image" class="input-contacto" required placeholder="https://images.unsplash.com/...">
                 </div>
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="checkbox" id="product-form-customizable" checked>
-                        <span>Permite personalización de iniciales o color de hilo</span>
-                    </label>
-                </div>
-
-                <div class="admin-modal-footer">
-                    <button type="button" class="btn-lume-cancel" onclick="LumeAdmin.closeProductModal()">Cancelar</button>
-                    <button type="submit" class="btn-lume-save">Guardar en Catálogo</button>
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:15px;">
+                    <button type="button" class="btn-cerrar-modal" onclick="cerrarModalAdmin()">Cancelar</button>
+                    <button type="submit" class="btn-nuevo-prod">Guardar Producto</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="js/storage.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
+    <!-- Script de Administración -->
     <script src="js/admin.js"></script>
 </body>
 </html>
