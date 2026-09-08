@@ -1,0 +1,7 @@
+# Entornos y temporales
+.DS_Store
+Thumbs.db
+*.log
+
+# Datos temporales de backend (manteniendo seed.json intacto)
+backend/data/store.json
