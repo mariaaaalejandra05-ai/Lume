@@ -1,5 +1,5 @@
 <?php
-// API para inicio de sesión en el panel de administración
+// Archivo para validar el inicio de sesión del panel de administración
 require_once __DIR__ . '/../conexion.php';
 
 $datos = obtenerDatosPost();
@@ -7,10 +7,10 @@ $datos = obtenerDatosPost();
 $correo = trim($datos['correo'] ?? '');
 $clave = trim($datos['clave'] ?? '');
 
-// Verificamos las credenciales de administración
+// Comparamos el correo y la contraseña
 if ($correo === 'admin@lume.com' && $clave === 'lume123') {
     responder(true, "Bienvenida al panel de Lume", [
-        "usuario" => "María González y Ángeles Navas",
+        "usuario" => "María González",
         "correo" => "admin@lume.com",
         "rol" => "admin"
     ]);

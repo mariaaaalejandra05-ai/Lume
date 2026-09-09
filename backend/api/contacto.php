@@ -12,7 +12,7 @@ if (!file_exists($archivo)) {
             "correo" => "camila@correo.com",
             "telefono" => "3129876543",
             "asunto" => "Personalización de pulseras",
-            "mensaje" => "Hola María y Ángeles! Quisiera pedir 3 pulseras con iniciales doradas para regalar a mis amigas.",
+            "mensaje" => "Hola María! Quisiera pedir 3 pulseras con iniciales doradas para regalar a mis amigas.",
             "fecha" => date("d/m/Y H:i")
         ]
     ];
@@ -56,5 +56,5 @@ if ($metodo === 'POST') {
     array_unshift($mensajes, $nuevoMensaje);
     file_put_contents($archivo, json_encode($mensajes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
-    responder(true, "¡Mensaje recibido con éxito! María y Ángeles te responderán pronto.", $nuevoMensaje);
+    responder(true, "¡Mensaje recibido con éxito! María te responderá pronto.", $nuevoMensaje);
 }

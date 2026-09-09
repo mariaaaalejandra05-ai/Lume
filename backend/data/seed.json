@@ -4,7 +4,7 @@
     "legalName": "Lumegn",
     "tagline": "Pulseras y accesorios artesanales modernos y personalizados",
     "description": "Lume es un emprendimiento dedicado a la elaboración de pulseras artesanales modernas y personalizadas, ofreciendo accesorios atractivos y de calidad a precios accesibles.",
-    "founders": ["María González", "Ángeles Navas"],
+    "founders": ["María González"],
     "targetAudience": "Jóvenes y adultos interesados en accesorios artesanales con significado y estilo único.",
     "email": "contacto@lume.com",
     "whatsapp": "+57 300 123 4567",
@@ -16,7 +16,7 @@
       "id": 1,
       "email": "admin@lume.com",
       "password": "lume123",
-      "name": "María González & Ángeles Navas",
+      "name": "María González",
       "role": "admin"
     }
   ],

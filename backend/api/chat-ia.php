@@ -16,8 +16,8 @@ $respuesta = "";
 $sugerencias = [];
 
 // Revisamos palabras clave para responder con información de Lume
-if (strpos($pregunta, 'quien') !== false || strpos($pregunta, 'dueña') !== false || strpos($pregunta, 'creador') !== false || strpos($pregunta, 'maria') !== false || strpos($pregunta, 'angeles') !== false) {
-    $respuesta = "¡Hola! Lume es un emprendimiento fundado por María González y Ángeles Navas. Creamos pulseras y accesorios artesanales modernos, de calidad y a precios accesibles.";
+if (strpos($pregunta, 'quien') !== false || strpos($pregunta, 'dueña') !== false || strpos($pregunta, 'creador') !== false || strpos($pregunta, 'maria') !== false) {
+    $respuesta = "¡Hola! Lume es un emprendimiento fundado por María González. Creamos pulseras y accesorios artesanales modernos, de calidad y a precios accesibles.";
     $sugerencias = ["¿Qué precios tienen?", "¿Cómo personalizar una pulsera?", "¿Hacen envíos?"];
 
 } elseif (strpos($pregunta, 'precio') !== false || strpos($pregunta, 'cuanto vale') !== false || strpos($pregunta, 'costo') !== false) {
@@ -25,11 +25,11 @@ if (strpos($pregunta, 'quien') !== false || strpos($pregunta, 'dueña') !== fals
     $sugerencias = ["Ver pulseras de pareja", "¿Cómo personalizar?", "Comprar por WhatsApp"];
 
 } elseif (strpos($pregunta, 'personaliz') !== false || strpos($pregunta, 'inicial') !== false || strpos($pregunta, 'letra') !== false || strpos($pregunta, 'nombre') !== false) {
-    $respuesta = "¡Sí, personalizamos tus pulseras! Puedes elegir la inicial de tu persona especial o tuya, además del color del hilo que más te guste (rojo, negro, beige, etc.).";
-    $sugerencias = ["Ver catálogo", "¿Cuánto tarda el envío?", "Escribir al WhatsApp"];
+    $respuesta = "¡Nos encanta personalizar! Puedes elegir la inicial de tu persona favorita o la tuya, además del color del hilo (rojo, negro, beige o palo de rosa) y los dijes en acero o medalla dorada.";
+    $sugerencias = ["¿Cómo hacer un pedido?", "¿Qué pulseras tienen?"];
 
 } elseif (strpos($pregunta, 'pareja') !== false || strpos($pregunta, 'novio') !== false || strpos($pregunta, 'novia') !== false || strpos($pregunta, 'duo') !== false) {
-    $respuesta = "¡Nuestro set de parejas es uno de los más pedidos! Incluye dos pulseras ajustables con piedras naturales de Ónix y Cuarzo blanco, simbolizando la unión y el equilibrio.";
+    $respuesta = "¡Nuestro set de parejas es uno de los más pedidos! Incluye dos pulseras ajustables con piedras naturales de Ónix y Cuarzo blanco, que representan el amor y la unión.";
     $sugerencias = ["¿Qué precio tiene?", "¿Hacen envíos a mi ciudad?"];
 
 } elseif (strpos($pregunta, 'cuidado') !== false || strpos($pregunta, 'mojar') !== false || strpos($pregunta, 'limpiar') !== false) {
@@ -41,8 +41,8 @@ if (strpos($pregunta, 'quien') !== false || strpos($pregunta, 'dueña') !== fals
     $sugerencias = ["Hacer un pedido", "Ver productos"];
 
 } else {
-    $respuesta = "¡Hola! Soy Lumi, la asistente de Lume ✨. Te puedo ayudar con información sobre precios, pulseras de parejas, opciones para personalizar iniciales o cómo hacer tu pedido.";
-    $sugerencias = ["¿Quiénes crearon Lume?", "¿Qué precios tienen?", "¿Cómo personalizar?"];
+    $respuesta = "¡Hola! Soy Lumi, la asistente virtual de Lume ✨. Te puedo ayudar con información sobre precios, pulseras de parejas, opciones para personalizar iniciales o cómo hacer tu pedido.";
+    $sugerencias = ["¿Quién creó Lume?", "¿Qué precios tienen?", "¿Cómo personalizar?"];
 }
 
 responder(true, "Respuesta generada", [

@@ -11,9 +11,8 @@ Lume es un emprendimiento dedicado a la elaboración de pulseras artesanales mod
 ## PÚBLICO OBJETIVO
 Jóvenes y adultos interesados en accesorios artesanales modernos, significativos y personalizados.
 
-## INTEGRANTES
+## FUNDADORA
 - **María González**
-- **Ángeles Navas**
 
 ---
 
@@ -93,4 +92,4 @@ Lume/
    - Contraseña: `lume123`
 
 ---
-© Lumegn — Proyecto desarrollado por María González y Ángeles Navas.
+© Lumegn — Proyecto desarrollado por María González.

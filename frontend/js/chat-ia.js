@@ -1,6 +1,6 @@
 // ========================================================
 // Asistente Virtual Inteligente de Lume ("Lumi")
-// Realizado por: María González y Ángeles Navas
+// Proyecto creado por: María González
 // ========================================================
 
 // Función para abrir y cerrar la ventana del chat
@@ -46,10 +46,10 @@ function enviarPreguntaIA(evento) {
 function generarRespuestaIA(texto) {
     const pregunta = texto.toLowerCase();
 
-    // ¿Quiénes son las creadoras?
-    if (pregunta.includes('quien') || pregunta.includes('fundador') || pregunta.includes('maria') || pregunta.includes('angeles') || pregunta.includes('creador')) {
+    // ¿Quién es la creadora?
+    if (pregunta.includes('quien') || pregunta.includes('fundador') || pregunta.includes('maria') || pregunta.includes('dueña') || pregunta.includes('creador')) {
         return {
-            texto: "¡Hola! Lume fue fundado con mucho cariño por <strong>María González</strong> y <strong>Ángeles Navas</strong>. Ellas elaboran a mano pulseras artesanales modernas y personalizadas para conectar personas y recuerdos especiales.",
+            texto: "¡Hola! Lume fue fundado con mucho cariño por <strong>María González</strong>. Elabora a mano pulseras artesanales modernas y personalizadas para conectar personas y recuerdos especiales.",
             sugerencias: ["¿Qué precios tienen?", "¿Cómo personalizar una pulsera?", "¿Hacen envíos?"]
         };
     }

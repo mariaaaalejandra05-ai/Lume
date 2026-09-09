@@ -3,7 +3,7 @@
 Este proyecto corresponde al proyecto de Lume.
 
 - **Nombre del Emprendimiento:** Lume (Lumegn)
-- **Integrantes:** María González y Ángeles Navas
+- **Fundadora:** María González
 - **Descripción:** Emprendimiento de accesorios y pulseras artesanales modernas y personalizadas a precios accesibles.
 
 ---
@@ -62,7 +62,7 @@ Si el profesor o evaluador te pregunta cómo funciona cada parte, aquí tienes l
 - En `contacto.js`, capturamos el evento `submit` del formulario para evitar que la página se recargue.
 - Validamos que el nombre no esté vacío, que el correo tenga el formato correcto (`@` y `.`) y que el mensaje tenga contenido suficiente.
 - Mostramos un estado de carga mientras se procesa.
-- El mensaje se almacena para que las administradoras (María y Ángeles) puedan leerlo en el panel de control.
+- El mensaje se almacena para que la administradora (María González) pueda leerlo en el panel de control.
 
 ### ¿Cómo funciona el Asistente Virtual (Inteligencia Artificial)?
 - En `chat-ia.js`, creamos una función que analiza el texto que escribe el usuario buscando **palabras clave** (por ejemplo: si contiene *"precio"*, *"pareja"*, *"personalizar"*, *"envío"* o *"María"*).

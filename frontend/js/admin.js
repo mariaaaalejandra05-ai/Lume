@@ -1,6 +1,6 @@
 // ========================================================
 // Panel de Administración de Lume
-// Realizado por: María González y Ángeles Navas
+// Proyecto creado por: María González
 // ========================================================
 
 // 1. FUNCIONES DE LOGIN Y SEGURIDAD
@@ -21,7 +21,7 @@ function iniciarSesion(evento) {
     // Validación sencilla de credenciales
     if (correo === 'admin@lume.com' && clave === 'lume123') {
         localStorage.setItem('lume_admin_activo', JSON.stringify({
-            nombre: 'María González y Ángeles Navas',
+            nombre: 'María González',
             correo: correo
         }));
         window.location.replace('admin.html');

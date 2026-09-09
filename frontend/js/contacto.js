@@ -1,6 +1,6 @@
 // ========================================================
 // Formulario de Contacto Funcional de Lume
-// Realizado por: María González y Ángeles Navas
+// Proyecto creado por: María González
 // ========================================================
 
 // Función que valida y procesa el envío del formulario de contacto
@@ -85,7 +85,7 @@ function enviarContacto(evento) {
         cajaRespuesta.innerHTML = `
             <div class="alerta-exito">
                 <strong>¡Gracias por escribirnos, ${nombre}!</strong>
-                <p>María González y Ángeles Navas hemos recibido tu consulta sobre <em>"${asunto}"</em>. Te responderemos muy pronto a tu correo <b>${correo}</b>.</p>
+                <p>María González ha recibido tu consulta sobre <em>"${asunto}"</em>. Te responderé muy pronto a tu correo <b>${correo}</b>.</p>
             </div>
         `;
 

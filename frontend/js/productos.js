@@ -1,6 +1,6 @@
 // ========================================================
 // Catálogo de Productos y Pulseras de Lume
-// Realizado por: María González y Ángeles Navas
+// Proyecto creado por: María González
 // ========================================================
 
 // Lista inicial de productos por si se abre directamente en el navegador o en GitHub Pages
@@ -276,7 +276,7 @@ function pedirConPersonalizacion(id) {
     const producto = listaProductos.find(p => p.id === id);
     if (!producto) return;
 
-    let mensaje = `Hola María y Ángeles! Quiero pedir la pieza "${producto.nombre}" de Lume ($ ${producto.precio.toLocaleString('es-CO')}).`;
+    let mensaje = `Hola María! Quiero pedir la pieza "${producto.nombre}" de Lume ($ ${producto.precio.toLocaleString('es-CO')}).`;
     
     const inputInicial = document.getElementById('input-inicial');
     const selectColor = document.getElementById('select-color-hilo');
@@ -294,7 +294,7 @@ function pedirConPersonalizacion(id) {
 
 // Función para generar el enlace directo a WhatsApp desde la tarjeta
 function crearEnlaceWhatsApp(producto) {
-    const mensaje = `Hola María y Ángeles! Me interesa la pieza "${producto.nombre}" de Lume ($ ${producto.precio.toLocaleString('es-CO')}). ¿Tienen disponibilidad?`;
+    const mensaje = `Hola María! Me interesa la pieza "${producto.nombre}" de Lume ($ ${producto.precio.toLocaleString('es-CO')}). ¿Tienes disponibilidad?`;
     return `https://wa.me/573001234567?text=${encodeURIComponent(mensaje)}`;
 }
 
