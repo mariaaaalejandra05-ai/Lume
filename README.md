@@ -48,6 +48,12 @@ Jóvenes y adultos interesados en accesorios artesanales modernos, significativo
    - Archivos en PHP organizados en la carpeta `backend/api/`.
    - Script SQL (`backend/base_datos.sql`) para crear las tablas de usuarios, productos y mensajes.
 
+7. **Seguridad y Buenas Prácticas:**
+   - Sanitización de datos en frontend y backend para prevenir ataques XSS.
+   - Protección contra fuerza bruta: bloqueo temporal de 30 segundos tras 3 intentos fallidos de login.
+   - Ocultamiento de contraseñas y accesos sensibles en el menú de clientes.
+   - Cabeceras de seguridad HTTP (`X-Frame-Options`, `X-Content-Type-Options`).
+
 ---
 
 ## 📁 ESTRUCTURA DE CARPETAS

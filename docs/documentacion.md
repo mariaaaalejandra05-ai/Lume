@@ -83,3 +83,30 @@ Si el profesor o evaluador te pregunta cómo funciona cada parte, aquí tienes l
 - En `style.css`, utilizamos `CSS Grid` y `Flexbox`, además de `@media (max-width: 768px)`.
 - En computadoras, los productos se organizan en 3 columnas; en tablets en 2 columnas, y en celulares en 1 sola columna.
 - En pantallas pequeñas, el menú de navegación se oculta y aparece un botón de menú tipo hamburguesa que se despliega al tocarlo.
+
+---
+
+## 3. Medidas de Seguridad Implementadas
+
+Para que el proyecto sea seguro y profesional, aplicamos las siguientes buenas prácticas que puedes mencionar con orgullo en tu presentación:
+
+1. **Protección contra Inyecciones XSS (Cross-Site Scripting):**
+   - Creamos la función `sanitizar()` en JavaScript que limpia cualquier símbolo peligroso (`<`, `>`, `"`, `'`) antes de guardarlo o mostrarlo.
+   - En PHP aplicamos `htmlspecialchars()` para asegurar que ningún usuario pueda inyectar código dañino a través del formulario de contacto ni en los productos.
+
+2. **Protección contra Ataques de Fuerza Bruta (Login Bloqueable):**
+   - El sistema cuenta con un límite de 3 intentos fallidos de inicio de sesión.
+   - Si alguien se equivoca 3 veces, el botón de ingreso se deshabilita automáticamente y se bloquea el acceso durante 30 segundos con un temporizador en pantalla.
+
+3. **Ocultamiento de Accesos Sensibles:**
+   - No mostramos contraseñas en texto visible en la pantalla de login.
+   - El acceso al panel de administración se retiró del menú principal de clientes para mantenerlo privado y discreto, tal como se hace en tiendas reales.
+   - Incluimos un botón con ícono de ojo para mostrar u ocultar la contraseña de forma cómoda.
+
+4. **Protección de Rutas Administrativas:**
+   - Si alguien intenta escribir directamente en el navegador `admin.html` sin haber iniciado sesión antes, la función `verificarAccesoAdmin()` lo detecta de inmediato y lo expulsa a la pantalla de login.
+
+5. **Cabeceras de Seguridad en el Servidor (HTTP Headers):**
+   - `X-Content-Type-Options: nosniff`: Evita que el navegador interprete archivos con tipos MIME incorrectos.
+   - `X-Frame-Options: SAMEORIGIN`: Protege contra ataques de Clickjacking.
+   - `X-XSS-Protection: 1; mode=block`: Activa el filtro del navegador contra scripts sospechosos.

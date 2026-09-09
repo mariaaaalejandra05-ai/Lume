@@ -3,6 +3,17 @@
 // Proyecto creado por: María González
 // ========================================================
 
+// Función de seguridad para limpiar texto y evitar inyecciones de código malicioso (XSS)
+function sanitizar(texto) {
+    if (!texto) return '';
+    return String(texto)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 // Función que valida y procesa el envío del formulario de contacto
 function enviarContacto(evento) {
     evento.preventDefault();
@@ -19,11 +30,11 @@ function enviarContacto(evento) {
     // Limpiamos mensajes de error anteriores
     cajaRespuesta.innerHTML = '';
 
-    const nombre = inputNombre.value.trim();
-    const correo = inputCorreo.value.trim();
-    const telefono = inputTelefono ? inputTelefono.value.trim() : '';
-    const asunto = selectAsunto.value;
-    const mensaje = inputMensaje.value.trim();
+    const nombre = sanitizar(inputNombre.value.trim());
+    const correo = sanitizar(inputCorreo.value.trim());
+    const telefono = inputTelefono ? sanitizar(inputTelefono.value.trim()) : '';
+    const asunto = sanitizar(selectAsunto.value);
+    const mensaje = sanitizar(inputMensaje.value.trim());
 
     // 1. Validaciones básicas y claras
     if (nombre.length < 2) {
@@ -55,9 +66,9 @@ function enviarContacto(evento) {
     // 2. Estado de carga en el botón
     const textoOriginal = botonEnviar.innerHTML;
     botonEnviar.disabled = true;
-    botonEnviar.innerHTML = `<span>Enviando mensaje...</span>`;
+    botonEnviar.innerHTML = `<span>Enviando mensaje de forma segura...</span>`;
 
-    // 3. Crear el objeto del mensaje
+    // 3. Crear el objeto del mensaje protegido
     const nuevoMensaje = {
         id: Date.now(),
         nombre: nombre,
@@ -68,7 +79,7 @@ function enviarContacto(evento) {
         fecha: new Date().toLocaleDateString('es-CO') + ' ' + new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })
     };
 
-    // Simulamos un pequeño tiempo de envío para que se vea real
+    // Simulamos un pequeño tiempo de envío seguro
     setTimeout(() => {
         // Guardamos el mensaje en el almacenamiento local para que aparezca en el panel admin
         let mensajesGuardados = [];

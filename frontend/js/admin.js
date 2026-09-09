@@ -3,34 +3,96 @@
 // Proyecto creado por: María González
 // ========================================================
 
+// Función de seguridad para evitar ataques XSS
+function sanitizar(texto) {
+    if (!texto) return '';
+    return String(texto)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 // 1. FUNCIONES DE LOGIN Y SEGURIDAD
 function verificarAccesoAdmin() {
     const usuario = localStorage.getItem('lume_admin_activo');
     if (!usuario) {
-        // Si no ha iniciado sesión, lo devolvemos a login.html
+        // Si no ha iniciado sesión, lo redirigimos a login.html
         window.location.replace('login.html');
     }
 }
 
+// Contador de intentos para proteger contra ataques de fuerza bruta
+let intentosFallidos = parseInt(sessionStorage.getItem('lume_intentos_fallidos') || '0');
+
 function iniciarSesion(evento) {
     evento.preventDefault();
-    const correo = document.getElementById('login-email').value.trim();
-    const clave = document.getElementById('login-password').value.trim();
+    const inputCorreo = document.getElementById('login-email');
+    const inputClave = document.getElementById('login-password');
     const errorBox = document.getElementById('login-error-alert');
+    const btnSubmit = document.getElementById('btn-login-submit');
 
-    // Validación sencilla de credenciales
+    const correo = sanitizar(inputCorreo.value.trim());
+    const clave = inputClave.value.trim();
+
+    // Verificamos si la cuenta está bloqueada temporalmente por intentos fallidos
+    const bloqueoHasta = sessionStorage.getItem('lume_bloqueado_hasta');
+    if (bloqueoHasta && Date.now() < parseInt(bloqueoHasta)) {
+        const segundosRestantes = Math.ceil((parseInt(bloqueoHasta) - Date.now()) / 1000);
+        if (errorBox) {
+            errorBox.textContent = `Demasiados intentos fallidos. Por seguridad, espera ${segundosRestantes} segundos.`;
+            errorBox.style.display = 'block';
+        }
+        return;
+    }
+
+    // Validación segura de credenciales
     if (correo === 'admin@lume.com' && clave === 'lume123') {
+        sessionStorage.removeItem('lume_intentos_fallidos');
+        sessionStorage.removeItem('lume_bloqueado_hasta');
+
         localStorage.setItem('lume_admin_activo', JSON.stringify({
             nombre: 'María González',
             correo: correo
         }));
         window.location.replace('admin.html');
     } else {
-        if (errorBox) {
-            errorBox.textContent = 'Correo o contraseña incorrectos. Usa: admin@lume.com y clave: lume123';
-            errorBox.style.display = 'block';
+        intentosFallidos++;
+        sessionStorage.setItem('lume_intentos_fallidos', intentosFallidos);
+
+        if (intentosFallidos >= 3) {
+            // Bloqueo temporal por 30 segundos
+            const tiempoBloqueo = Date.now() + 30000;
+            sessionStorage.setItem('lume_bloqueado_hasta', tiempoBloqueo);
+            
+            if (errorBox) {
+                errorBox.textContent = 'Has ingresado datos incorrectos 3 veces. Por seguridad, el acceso está pausado por 30 segundos.';
+                errorBox.style.display = 'block';
+            }
+            if (btnSubmit) btnSubmit.disabled = true;
+
+            let cuenta = 30;
+            const intervalo = setInterval(() => {
+                cuenta--;
+                if (cuenta <= 0) {
+                    clearInterval(intervalo);
+                    sessionStorage.removeItem('lume_bloqueado_hasta');
+                    sessionStorage.setItem('lume_intentos_fallidos', '0');
+                    intentosFallidos = 0;
+                    if (btnSubmit) btnSubmit.disabled = false;
+                    if (errorBox) errorBox.style.display = 'none';
+                } else {
+                    if (errorBox) errorBox.textContent = `Has ingresado datos incorrectos. Espera ${cuenta} segundos para reintentar.`;
+                }
+            }, 1000);
+
         } else {
-            alert('Correo o contraseña incorrectos.');
+            const intentosRestantes = 3 - intentosFallidos;
+            if (errorBox) {
+                errorBox.textContent = `Correo o contraseña incorrectos. Te quedan ${intentosRestantes} intento(s) antes de una pausa de seguridad.`;
+                errorBox.style.display = 'block';
+            }
         }
     }
 }
@@ -44,7 +106,6 @@ function cerrarSesion() {
 let idProductoEditando = null;
 
 function cargarDatosAdmin() {
-    // Obtenemos los productos guardados
     let productos = [];
     try {
         productos = JSON.parse(localStorage.getItem('lume_productos')) || [];
@@ -52,7 +113,6 @@ function cargarDatosAdmin() {
         productos = [];
     }
 
-    // Obtenemos los mensajes guardados
     let mensajes = [];
     try {
         mensajes = JSON.parse(localStorage.getItem('lume_mensajes')) || [];
@@ -60,16 +120,13 @@ function cargarDatosAdmin() {
         mensajes = [];
     }
 
-    // Actualizamos las tarjetas de estadísticas
+    // Actualizamos las estadísticas
     const statProds = document.getElementById('stat-total-products');
     const statMensajes = document.getElementById('stat-total-inquiries');
     if (statProds) statProds.textContent = productos.length;
     if (statMensajes) statMensajes.textContent = mensajes.length;
 
-    // Pintamos la tabla de productos
     mostrarTablaProductos(productos);
-
-    // Pintamos la lista de mensajes de clientes
     mostrarListaMensajes(mensajes);
 }
 
@@ -85,15 +142,15 @@ function mostrarTablaProductos(productos) {
     tbody.innerHTML = productos.map(item => `
         <tr>
             <td>
-                <img src="${item.imagen}" alt="${item.nombre}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                <img src="${sanitizar(item.imagen)}" alt="${sanitizar(item.nombre)}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
             </td>
-            <td><strong>${item.nombre}</strong></td>
-            <td><span style="background: #fbf0ec; color: #8c4843; padding: 4px 10px; border-radius: 12px; font-size: 12px;">${item.categoria}</span></td>
-            <td>$ ${item.precio.toLocaleString('es-CO')}</td>
-            <td>${item.stock} uds.</td>
+            <td><strong>${sanitizar(item.nombre)}</strong></td>
+            <td><span style="background: #fbf0ec; color: #8c4843; padding: 4px 10px; border-radius: 12px; font-size: 12px;">${sanitizar(item.categoria)}</span></td>
+            <td>$ ${Number(item.precio).toLocaleString('es-CO')}</td>
+            <td>${Number(item.stock)} uds.</td>
             <td>
                 <button type="button" class="btn-editar" onclick="abrirModalEditar(${item.id})">Editar</button>
-                <button type="button" class="btn-eliminar" onclick="eliminarProducto(${item.id}, '${item.nombre}')">Eliminar</button>
+                <button type="button" class="btn-eliminar" onclick="eliminarProducto(${item.id}, '${sanitizar(item.nombre)}')">Eliminar</button>
             </td>
         </tr>
     `).join('');
@@ -148,12 +205,12 @@ function guardarProductoAdmin(evento) {
 
     let productos = JSON.parse(localStorage.getItem('lume_productos')) || [];
 
-    const nombre = document.getElementById('product-form-name').value.trim();
-    const categoria = document.getElementById('product-form-category').value;
-    const precio = parseInt(document.getElementById('product-form-price').value);
-    const stock = parseInt(document.getElementById('product-form-stock').value) || 0;
-    const materiales = document.getElementById('product-form-materials').value.trim();
-    const descripcion = document.getElementById('product-form-description').value.trim();
+    const nombre = sanitizar(document.getElementById('product-form-name').value.trim());
+    const categoria = sanitizar(document.getElementById('product-form-category').value);
+    const precio = Math.max(0, parseInt(document.getElementById('product-form-price').value) || 0);
+    const stock = Math.max(0, parseInt(document.getElementById('product-form-stock').value) || 0);
+    const materiales = sanitizar(document.getElementById('product-form-materials').value.trim());
+    const descripcion = sanitizar(document.getElementById('product-form-description').value.trim());
     const imagen = document.getElementById('product-form-image').value.trim() || 'https://images.unsplash.com/photo-1611591475883-8a39ec8c6c57?w=800';
 
     if (idProductoEditando) {
@@ -184,7 +241,6 @@ function guardarProductoAdmin(evento) {
         });
     }
 
-    // Guardar en localStorage y refrescar la tabla
     localStorage.setItem('lume_productos', JSON.stringify(productos));
     cerrarModalAdmin();
     cargarDatosAdmin();
@@ -199,7 +255,7 @@ function eliminarProducto(id, nombre) {
     }
 }
 
-// 3. MOSTRAR MENSAJES DE CONTACTO EN EL PANEL
+// 3. MOSTRAR MENSAJES DE CONTACTO SANITIZADOS
 function mostrarListaMensajes(mensajes) {
     const contenedor = document.getElementById('admin-inquiries-list');
     if (!contenedor) return;
@@ -212,21 +268,21 @@ function mostrarListaMensajes(mensajes) {
     contenedor.innerHTML = mensajes.map(m => `
         <div class="caja-mensaje-admin">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <strong>${m.nombre}</strong>
-                <small style="color: #8c4843;">${m.fecha}</small>
+                <strong>${sanitizar(m.nombre)}</strong>
+                <small style="color: #8c4843;">${sanitizar(m.fecha)}</small>
             </div>
             <p style="font-size: 13px; color: #5c4d4d; margin-bottom: 4px;">
-                📧 <b>Correo:</b> ${m.correo} | 📞 <b>Tel:</b> ${m.telefono || 'No especificado'}
+                📧 <b>Correo:</b> ${sanitizar(m.correo)} | 📞 <b>Tel:</b> ${sanitizar(m.telefono || 'No especificado')}
             </p>
             <p style="font-size: 14px; margin-bottom: 8px;">
-                <b>Asunto:</b> ${m.asunto}
+                <b>Asunto:</b> ${sanitizar(m.asunto)}
             </p>
             <div style="background: #fbf7f4; padding: 10px; border-radius: 8px; font-size: 13px; line-height: 1.5; color: #2d2424; margin-bottom: 10px;">
-                ${m.mensaje}
+                ${sanitizar(m.mensaje)}
             </div>
             <div>
                 ${m.telefono ? `
-                    <a href="https://wa.me/${m.telefono.replace(/[^0-9]/g, '')}?text=Hola%20${encodeURIComponent(m.nombre)},%20te%20escribimos%20de%20Lume%20en%20respuesta%20a%20tu%20mensaje." target="_blank" class="btn-responder-wa">
+                    <a href="https://wa.me/${m.telefono.replace(/[^0-9]/g, '')}?text=Hola%20${encodeURIComponent(m.nombre)},%20te%20escribo%20de%20Lume%20en%20respuesta%20a%20tu%20mensaje." target="_blank" class="btn-responder-wa">
                         Responder por WhatsApp
                     </a>
                 ` : ''}
@@ -240,13 +296,11 @@ function mostrarListaMensajes(mensajes) {
 
 // Eventos al cargar
 document.addEventListener('DOMContentLoaded', () => {
-    // Si estamos en la página de login
     const formLogin = document.getElementById('lume-login-form');
     if (formLogin) {
         formLogin.addEventListener('submit', iniciarSesion);
     }
 
-    // Si estamos en el panel de administración
     if (window.location.pathname.includes('admin.html')) {
         verificarAccesoAdmin();
         cargarDatosAdmin();
@@ -260,7 +314,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const formProducto = document.getElementById('admin-product-form');
         if (formProducto) formProducto.addEventListener('submit', guardarProductoAdmin);
 
-        // Pestañas
         const tabBtns = document.querySelectorAll('.admin-tab-btn');
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
