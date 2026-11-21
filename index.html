@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lume | Pulseras y collares hechos a mano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Caveat:wght@500&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Barra de navegacion -->
+  <header class="nav">
+    <a href="#inicio" class="logo">lume</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+    <nav id="menu">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Pedidos</a>
+      <a href="admin.html" class="nav-admin">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Home -->
+  <section id="inicio" class="hero">
+    <div class="hero-texto aparecer">
+      <p class="nota">hecho a mano en Panamá</p>
+      <h2>Pulseras y collares que nadie más va a tener igual</h2>
+      <p>Las tejemos nosotros, una por una, con hilo, mostacillas, piedritas y conchas de playa.</p>
+      <a href="#catalogo" class="btn">Ver las piezas</a>
+    </div>
+  </section>
+
+  <!-- Franja con datos -->
+  <div class="franja">
+    <span>Desde $3</span>
+    <span>Pedidos personalizados</span>
+    <span>Entregas en Panamá</span>
+  </div>
+
+  <!-- Catalogo -->
+  <section id="catalogo" class="seccion">
+    <h2>Catálogo</h2>
+    <p class="subtitulo">Lo que tenemos ahorita. Si no ves el color que quieres, pregúntanos.</p>
+
+    <div class="filtros">
+      <button class="filtro activo" data-cat="todos">Todo</button>
+      <button class="filtro" data-cat="pulsera">Pulseras</button>
+      <button class="filtro" data-cat="collar">Collares</button>
+    </div>
+
+    <p id="cargando" class="cargando">Cargando productos...</p>
+    <div id="listaProductos" class="grid"></div>
+  </section>
+
+  <!-- Nosotros -->
+  <section id="nosotros" class="nosotros">
+    <div class="seccion">
+      <h2>¿Cómo empezó Lume?</h2>
+      <p>
+        Lume empezó en una mesa de la casa con una bolsa de mostacillas y muchas ganas de hacer algo propio.
+        Primero eran pulseras para amigos y después nos empezaron a pedir más.
+        Hoy hacemos pulseras y collares a mano, y también pedidos con nombres o con los colores que tú elijas.
+      </p>
+      <p class="firma">— el equipo de Lume</p>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="seccion">
+    <h2>Haz tu pedido</h2>
+    <p class="subtitulo">Cuéntanos qué quieres y te escribimos para cuadrar la entrega.</p>
+
+    <!-- FormSubmit manda el mensaje al correo. CAMBIAR el correo por el de ustedes -->
+    <form id="formContacto" action="https://formsubmit.co/TU_CORREO@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nuevo pedido desde Lume">
+      <input type="hidden" name="_captcha" value="false">
+
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre">
+
+      <label for="correo">Correo</label>
+      <input type="email" id="correo" name="correo">
+
+      <label for="mensaje">¿Qué te gustaría?</label>
+      <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+
+      <p id="errorForm" class="error"></p>
+      <button type="submit" class="btn">Enviar</button>
+    </form>
+  </section>
+
+  <footer>
+    <p class="logo">lume</p>
+    <p>Pulseras y collares hechos a mano · Panamá · 2026</p>
+  </footer>
+
+  <!-- Chatbot -->
+  <button id="abrirChat" class="chat-boton" aria-label="Abrir chat">Pregúntanos</button>
+  <div id="chat" class="chat oculto">
+    <div class="chat-header">
+      <span>Luma · asistente de Lume</span>
+      <button id="cerrarChat" aria-label="Cerrar chat">✕</button>
+    </div>
+    <div id="chatMensajes" class="chat-mensajes"></div>
+    <form id="chatForm" class="chat-form">
+      <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

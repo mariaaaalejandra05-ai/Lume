@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lume | Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Caveat:wght@500&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="admin-body">
+
+  <header class="nav">
+    <a href="index.html" class="logo">lume</a>
+    <nav>
+      <a href="index.html">← Volver a la tienda</a>
+    </nav>
+  </header>
+
+  <!-- Login -->
+  <section id="login" class="seccion caja">
+    <h2>Iniciar sesión</h2>
+    <form id="formLogin">
+      <label for="usuario">Usuario</label>
+      <input type="text" id="usuario">
+      <label for="clave">Contraseña</label>
+      <input type="password" id="clave">
+      <p id="errorLogin" class="error"></p>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+  </section>
+
+  <!-- Panel (se muestra despues del login) -->
+  <section id="panel" class="seccion oculto">
+    <div class="panel-top">
+      <h2>Panel de productos</h2>
+      <button id="btnSalir" class="btn btn-gris">Cerrar sesión</button>
+    </div>
+
+    <form id="formProducto" class="caja">
+      <h3>Agregar producto</h3>
+      <label for="pNombre">Nombre</label>
+      <input type="text" id="pNombre">
+
+      <label for="pCategoria">Categoría</label>
+      <select id="pCategoria">
+        <option value="pulsera">Pulsera</option>
+        <option value="collar">Collar</option>
+      </select>
+
+      <label for="pPrecio">Precio ($)</label>
+      <input type="number" id="pPrecio" step="0.5" min="0">
+
+      <label for="pDesc">Descripción</label>
+      <textarea id="pDesc" rows="2"></textarea>
+
+      <label for="pFoto">Foto (opcional)</label>
+      <input type="file" id="pFoto" accept="image/*">
+      <img id="vistaFoto" class="vista-foto oculto" alt="Vista previa de la foto">
+
+      <label for="pImagen">o ruta de la imagen (ej: img/pulsera1.jpg)</label>
+      <input type="text" id="pImagen">
+
+      <p id="errorProducto" class="error"></p>
+      <button type="submit" class="btn">Guardar</button>
+    </form>
+
+    <h3>Productos actuales</h3>
+    <table class="tabla">
+      <thead>
+        <tr><th></th><th>Nombre</th><th>Categoría</th><th>Precio</th><th></th></tr>
+      </thead>
+      <tbody id="tablaProductos"></tbody>
+    </table>
+    <button id="btnReiniciar" class="btn btn-gris">Volver a productos iniciales</button>
+  </section>
+
+  <script src="js/datos.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

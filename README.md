@@ -1,101 +1,36 @@
-# Lume
+# Lume ✨
 
-## DESCRIPCIÓN
-Lume es un emprendimiento dedicado a la elaboración de pulseras artesanales modernas y personalizadas, ofreciendo accesorios atractivos y de calidad a precios accesibles.
+Página web de **Lume**, un emprendimiento de pulseras y collares hechos a mano en Panamá.
 
-## OBJETIVOS
-- Ofrecer accesorios atractivos y de calidad a precios accesibles.
-- Conectar emociones y recuerdos a través de piezas hechas a mano con dedicación.
-- Brindar una experiencia de compra personalizada y moderna, tanto digital como física.
+## ¿Qué tiene?
+- **Inicio** con la marca
+- **Catálogo** de pulseras y collares con filtros
+- **Formulario de contacto** que llega al correo (con FormSubmit)
+- **Panel de admin** con login para agregar y eliminar productos
+- **Chatbot "Luma"** que responde preguntas sobre los productos, precios y pedidos
 
-## PÚBLICO OBJETIVO
-Jóvenes y adultos interesados en accesorios artesanales modernos, significativos y personalizados.
+## Tecnologías
+- HTML, CSS y JavaScript
+- localStorage para guardar los productos
+- FormSubmit para el formulario
+- GitHub Pages para publicarlo
 
-## FUNDADORA
-- **María González**
-
----
-
-## 🌸 FUNCIONALIDADES DEL PROYECTO
-
-1. **Página de Inicio y Marca:**
-   - Presentación de la marca Lume y su historia.
-   - Diseño femenino, elegante y artesanal.
-   - Totalmente responsivo para celulares, tablets y computadoras.
-
-2. **Catálogo Interactivo de Productos:**
-   - Filtros por categoría (*Todos*, *Pulseras*, *Joyas*, *Parejas*, *Personalizadas*).
-   - Buscador por nombre y opción de ordenar por precio.
-   - Modal de detalle con personalización de iniciales y color de hilo.
-   - Botón directo para pedir por WhatsApp.
-
-3. **Formulario de Contacto Funcional:**
-   - Validaciones de campos (nombre, correo válido y mensaje).
-   - Mensaje de confirmación y guardado para el panel de administración.
-   - Botón de contacto directo por WhatsApp.
-
-4. **Asistente Virtual (Inteligencia Artificial):**
-   - Asistente "Lumi" que responde preguntas sobre precios, modelos, cuidados y personalización analizando palabras clave.
-
-5. **Panel Privado de Administración (CRUD):**
-   - Acceso con usuario y contraseña:
-     - **Correo:** `admin@lume.com`
-     - **Contraseña:** `lume123`
-   - Gestión de productos: agregar nuevos modelos, editar datos y eliminar piezas.
-   - Bandeja para revisar los mensajes que envían los clientes.
-
-6. **Backend y Base de Datos:**
-   - Archivos en PHP organizados en la carpeta `backend/api/`.
-   - Script SQL (`backend/base_datos.sql`) para crear las tablas de usuarios, productos y mensajes.
-
-7. **Seguridad y Buenas Prácticas:**
-   - Sanitización de datos en frontend y backend para prevenir ataques XSS.
-   - Protección contra fuerza bruta: bloqueo temporal de 30 segundos tras 3 intentos fallidos de login.
-   - Ocultamiento de contraseñas y accesos sensibles en el menú de clientes.
-   - Cabeceras de seguridad HTTP (`X-Frame-Options`, `X-Content-Type-Options`).
-
----
-
-## 📁 ESTRUCTURA DE CARPETAS
-
+## Carpetas
 ```
-Lume/
-├── backend/
-│   ├── api/
-│   │   ├── productos.php
-│   │   ├── contacto.php
-│   │   ├── login.php
-│   │   └── chat-ia.php
-│   ├── app.php
-│   ├── conexion.php
-│   └── base_datos.sql
-├── frontend/
-│   ├── css/
-│   │   ├── style.css
-│   │   └── admin.css
-│   ├── js/
-│   │   ├── productos.js
-│   │   ├── contacto.js
-│   │   ├── chat-ia.js
-│   │   └── admin.js
-│   ├── img/
-│   ├── index.html
-│   ├── login.html
-│   └── admin.html
-├── docs/
-│   └── documentacion.md
-├── index.html
-└── README.md
+lume/
+├── index.html      -> página principal
+├── admin.html      -> login y panel
+├── css/estilos.css -> estilos y responsive
+├── js/datos.js     -> manejo de los datos (productos)
+├── js/main.js      -> catálogo, menú y formulario
+├── js/chatbot.js   -> chatbot
+├── js/admin.js     -> login y panel
+└── img/            -> fotos de los productos
 ```
 
----
+## Admin
+- Usuario: `admin`
+- Contraseña: `lume2026`
 
-## 🚀 CÓMO ABRIR EL PROYECTO
-
-1. **Ver la tienda:** Abre directamente el archivo `frontend/index.html` en cualquier navegador web.
-2. **Entrar al panel de administración:** Abre `frontend/login.html` e ingresa con:
-   - Correo: `admin@lume.com`
-   - Contraseña: `lume123`
-
----
-© Lumegn — Proyecto desarrollado por María González.
+## Integrantes
+- (nombres aquí)
